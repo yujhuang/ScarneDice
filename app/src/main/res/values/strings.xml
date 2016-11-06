@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ScarneDice</string>
+    <string name="action_settings">Settings</string>
+    <string name="btnsend">Send</string>
+    <string name="btnroll">ROLL</string>
+    <string name="btnhold">HOLD</string>
+    <string name="btnreset">RESET</string>
+
+</resources>
