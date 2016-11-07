@@ -60,16 +60,19 @@ public class MainActivity extends AppCompatActivity {
         timerHandler.postDelayed(timerRunnable,0);
     }
     private void nextTurn(){
-        checkWinner();
+        int end = checkWinner();
         userTurn = 0;
         comTurn = 0;
         updateScore();
-        if(turn == Turn.USER) {
-             computerTurn();
-        }else {
-            timerHandler.removeCallbacks(timerRunnable);
-            userTurn();
+        if(end == 0) {
+            if(turn == Turn.USER) {
+                computerTurn();
+            }else {
+                timerHandler.removeCallbacks(timerRunnable);
+                userTurn();
+            }
         }
+
     }
 
     public void handleRollClick(View view) {
@@ -136,19 +139,23 @@ public class MainActivity extends AppCompatActivity {
         score.setText(String.format(scoreFormat,userScore,comScore,userTurn,comTurn));
     }
 
-    private void checkWinner() {
+    private int checkWinner() {
         TextView winner = (TextView) findViewById(R.id.winner);
         if(userScore >= 100 ) {
             winner.setText("You wins!");
             timerHandler.removeCallbacks(timerRunnable);
             findViewById(R.id.btRoll).setEnabled(false);
             findViewById(R.id.bthold).setEnabled(false);
+            return 1;
         }
         if(comScore >= 100) {
             winner.setText("Computer wins!");
+            timerHandler.removeCallbacks(timerRunnable);
             findViewById(R.id.btRoll).setEnabled(false);
             findViewById(R.id.bthold).setEnabled(false);
+            return 1;
         }
+        return 0;
     }
 
     @Override
